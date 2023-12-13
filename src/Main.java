@@ -44,12 +44,12 @@ class Compdecomp implements ActionListener {
                     FileInputStream fis=new FileInputStream(file);
                     FileOutputStream fos=new FileOutputStream(fileDirectory+"/CompressedFile.gz");
                     GZIPOutputStream gzip=new GZIPOutputStream(fos);
-
                     byte[] buffer=new byte[1024];
                     int len;
                     while((len=fis.read(buffer))!=-1)
+                    {
                         gzip.write(buffer,0,len);
-
+                    }
                     fis.close();
                     fos.close();
                     gzip.close();
@@ -61,28 +61,28 @@ class Compdecomp implements ActionListener {
         }
         if(e.getSource()==decompressButton)
         {
-            try{
-                JFileChooser fileChooser=new JFileChooser();
-                int chooseOption=fileChooser.showSaveDialog(null);
-                if(chooseOption == JFileChooser.APPROVE_OPTION)
-                {
-                    File file=fileChooser.getSelectedFile();
-                    String fileDirectory=file.getParent();
-                        FileInputStream fis=new FileInputStream(file);
-                        GZIPInputStream gzip=new GZIPInputStream(fis);
-                        FileOutputStream fos=new FileOutputStream(fileDirectory+"/DecompressedFile.txt");
-                        byte[] buffer=new byte[1024];
-                        int len;
-                        while((len=gzip.read(buffer))!=-1)
-                        {
-                            fos.write(buffer,0,len);
-                        }
-                        fis.close();
-                        fos.close();
-                        gzip.close();
+            JFileChooser fileChooser=new JFileChooser();
+            int chooseOption=fileChooser.showSaveDialog(null);
+            if(chooseOption == JFileChooser.APPROVE_OPTION)
+            {
+                File file=fileChooser.getSelectedFile();
+                String fileDirectory=file.getParent();
+                try{
+                    FileInputStream fis=new FileInputStream(file);
+                    GZIPInputStream gzip=new GZIPInputStream(fis);
+                    FileOutputStream fos=new FileOutputStream(fileDirectory+"/DecompressedFile.txt");
+                    byte[] buffer=new byte[1024];
+                    int len;
+                    while((len=gzip.read(buffer))!=-1)
+                    {
+                        fos.write(buffer,0,len);
+                    }
+                    fis.close();
+                    fos.close();
+                    gzip.close();
+                }catch(IOException ee){
+                    ee.printStackTrace();
                 }
-            }catch(IOException ee){
-                ee.printStackTrace();
             }
         }
     }
