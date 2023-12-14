@@ -70,7 +70,7 @@ class Compdecomp implements ActionListener {
                 try{
                     FileInputStream fis=new FileInputStream(file);
                     GZIPInputStream gzip=new GZIPInputStream(fis);
-                    FileOutputStream fos=new FileOutputStream(fileDirectory+"/DecompressedFile.txt");
+                    FileOutputStream fos=new FileOutputStream(fileDirectory+"/DecompressedFile");
                     byte[] buffer=new byte[1024];
                     int len;
                     while((len=gzip.read(buffer))!=-1)
